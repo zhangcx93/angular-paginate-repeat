@@ -6,7 +6,8 @@
     "zhangcx93 <zhangcx93@gmail.com>"
   ],
   "dependencies": {
-    "angular": "1.2.19"
+    "angular": "~1.2.19",
+    "jquery": ">=1.11.1"
   },
   "description": "ng-repeat + pagniate = pg-repeat",
   "keywords": [
@@ -15,6 +16,7 @@
     "ng-repeat"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/zhangcx93/angular-paginate-repeat",
   "ignore": [
     "**/.*",
     "node_modules",

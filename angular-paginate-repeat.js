@@ -9,12 +9,13 @@ angular.module('paginateRepeat', [])
       scope: true,
       link: function (scope, element, attrs, ctrl, transclude) {
         var repeat = attrs.pgRepeat;
-        var limit = attrs.limit || 10;
-        var itemName = repeat.split(' in ')[0];
-        var allData, length;
+        var limit, itemName, allData, length;
         var init = function () {
+          limit = attrs.limit || 10;
+          itemName = repeat.split(' in ')[0];
           allData = scope[repeat.split(' in ')[1]];
           length = allData.length;
+          scope.maxPage = Math.ceil(attrs.max / 2) || 3;
           scope.nowPage = 1;
           scope.pages = (function () {
             var arr = [];
@@ -45,7 +46,9 @@ angular.module('paginateRepeat', [])
           var paginate = angular.element([
             '<div class="repeat-paginate" ng-show="pages">',
             '<a class="paginate-prev" ng-show="nowPage!=1" ng-click="prev()">上页</a>',
-            '<a class="paginate-item" ng-class="{active: page == nowPage}" ng-repeat="page in pages" ng-click="go(page)">{{ page }}</a>',
+            '<span ng-show="nowPage > maxPage">...</span>',
+            '<a class="paginate-item" ng-class="{active: page == nowPage}" ng-show="page > nowPage - maxPage && page < nowPage + maxPage" ng-repeat="page in pages" ng-click="go(page)">{{ page }}</a>',
+            '<span ng-show="nowPage + maxPage < pages.length + 1">...</span>',
             '<a class="paginate-next" ng-show="nowPage!=pages.length" ng-click="next()">下页</a>',
             '</div>'].join(''));
           element.append($compile(paginate)(scope));

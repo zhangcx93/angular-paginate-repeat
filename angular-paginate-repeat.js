@@ -35,7 +35,7 @@ angular.module('paginateRepeat', [])
             init();
             update();
           }
-        });
+        }, true);
 
         init();
         update();

@@ -9,9 +9,11 @@ angular.module('paginateRepeat', [])
       scope: true,
       link: function (scope, element, attrs, ctrl, transclude) {
         var repeat = attrs.pgRepeat;
-        var limit, itemName, allData, length;
+        var limit, itemName, allData, length, prevText, nextText;
         var init = function () {
           limit = attrs.limit || 10;
+          prevText = attr.prev || 'Prev';
+          nextText = attr.next || 'Next';
           itemName = repeat.split(' in ')[0];
           allData = scope[repeat.split(' in ')[1]];
           length = allData.length;
@@ -40,16 +42,22 @@ angular.module('paginateRepeat', [])
         init();
         update();
         transclude(scope, function (clone) {
-          var repeater = angular.element('<div ng-repeat="' + itemName + ' in sliceData"></div>');
-          repeater.append(clone);
+          var repeater = clone.clone();
+          repeater.attr('ng-repeat', itemName + ' in sliceData');
           element.append($compile(repeater)(scope));
           var paginate = angular.element([
             '<div class="repeat-paginate" ng-show="pages">',
-            '<a class="paginate-prev" ng-show="nowPage!=1" ng-click="prev()">上页</a>',
-            '<span ng-show="nowPage > maxPage">...</span>',
-            '<a class="paginate-item" ng-class="{active: page == nowPage}" ng-show="page > nowPage - maxPage && page < nowPage + maxPage" ng-repeat="page in pages" ng-click="go(page)">{{ page }}</a>',
+            '<a class="paginate-prev" ng-show="nowPage!=1" ng-click="prev()">',
+            prevText,
+            '</a>',
+            '<a class="paginate-item first" ng-class="{active: 1 == nowPage}" ng-click="go(1)">1</a>',
+            '<span ng-show="nowPage > maxPage && nowPage != maxPage + 1">...</span>',
+            '<a class="paginate-item" ng-class="{active: page == nowPage}" ng-show="page != 1 && page != pages.length && page > nowPage - maxPage && page < nowPage + maxPage" ng-repeat="page in pages" ng-click="go(page)">{{ page }}</a>',
             '<span ng-show="nowPage + maxPage < pages.length + 1">...</span>',
-            '<a class="paginate-next" ng-show="nowPage!=pages.length" ng-click="next()">下页</a>',
+            '<a class="paginate-item last" ng-class="{active: nowPage == pages.length}" ng-click="go(pages.length)">{{ pages.length }}</a>',
+            '<a class="paginate-next" ng-show="nowPage!=pages.length" ng-click="next()">',
+            nextText,
+            '</a>',
             '</div>'].join(''));
           element.append($compile(paginate)(scope));
         });

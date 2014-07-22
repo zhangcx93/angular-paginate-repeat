@@ -38,8 +38,13 @@ item numbers per page
 defulat = 10
 
 ###max:
-Max pages display, if more than this, paginate will look like 1 2 3 ... 60 61 62
+Max pages display, if more than this, paginate will look like 1 2 3 ... 60 61 62  
+default = 6
 
+###prev, next
+Text of prev and next button
+default: 
+prev='Prev', next='Next' 
 	
 ## Contribute
 Contact me at zhangcx93@gmail.com, feel free to report bugs and functions you need!

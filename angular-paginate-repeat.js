@@ -12,8 +12,8 @@ angular.module('paginateRepeat', [])
         var limit, itemName, allData, length, prevText, nextText;
         var init = function () {
           limit = attrs.limit || 10;
-          prevText = attr.prev || 'Prev';
-          nextText = attr.next || 'Next';
+          prevText = attrs.prev || 'Prev';
+          nextText = attrs.next || 'Next';
           itemName = repeat.split(' in ')[0];
           allData = scope[repeat.split(' in ')[1]];
           length = allData.length;
@@ -54,7 +54,7 @@ angular.module('paginateRepeat', [])
             '<span ng-show="nowPage > maxPage && nowPage != maxPage + 1">...</span>',
             '<a class="paginate-item" ng-class="{active: page == nowPage}" ng-show="page != 1 && page != pages.length && page > nowPage - maxPage && page < nowPage + maxPage" ng-repeat="page in pages" ng-click="go(page)">{{ page }}</a>',
             '<span ng-show="nowPage + maxPage < pages.length + 1">...</span>',
-            '<a class="paginate-item last" ng-class="{active: nowPage == pages.length}" ng-click="go(pages.length)">{{ pages.length }}</a>',
+            '<a class="paginate-item last" ng-class="{active: nowPage == pages.length}" ng-click="go(pages.length)" ng-hide="pages.length == 1">{{ pages.length }}</a>',
             '<a class="paginate-next" ng-show="nowPage!=pages.length" ng-click="next()">',
             nextText,
             '</a>',

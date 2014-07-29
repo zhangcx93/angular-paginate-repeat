@@ -50,7 +50,7 @@ angular.module('paginateRepeat', [])
             '<a class="paginate-prev" ng-show="nowPage!=1" ng-click="prev()">',
             prevText,
             '</a>',
-            '<a class="paginate-item first" ng-class="{active: 1 == nowPage}" ng-click="go(1)">1</a>',
+            '<a class="paginate-item first" ng-class="{active: 1 == nowPage, onlyOne: pages.length == 1}" ng-click="go(1)">1</a>',
             '<span ng-show="nowPage > maxPage && nowPage != maxPage + 1">...</span>',
             '<a class="paginate-item" ng-class="{active: page == nowPage}" ng-show="page != 1 && page != pages.length && page > nowPage - maxPage && page < nowPage + maxPage" ng-repeat="page in pages" ng-click="go(page)">{{ page }}</a>',
             '<span ng-show="nowPage + maxPage < pages.length">...</span>',

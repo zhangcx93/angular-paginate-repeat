@@ -45,6 +45,10 @@ default = 6
 Text of prev and next button
 default: 
 prev='Prev', next='Next' 
+
+
+##Tip
+If there is only one page, 'onlyOne' class will be added to the first page button
 	
 ## Contribute
 Contact me at zhangcx93@gmail.com, feel free to report bugs and functions you need!
